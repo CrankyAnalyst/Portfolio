@@ -1,0 +1,482 @@
+---
+title: "BellaBeat Study Case"
+author: "ATP"
+--date: "`r Sys.Date()`"
+output:
+  html_document: default
+  word_document: default
+  pdf_document: default
+---
+
+# Introduction and background
+
+You are a junior data analyst working on the marketing analyst team at Bellabeat, a high-tech manufacturer of health-focused products for women. Bellabeat is a successful small company, but they have the potential to become a larger player in the global smart device market. Urška Sršen, cofounder and Chief Creative Officer of Bellabeat, believes that analyzing smart device fitness data could help unlock new growth opportunities for the company. You have been asked to focus on one of Bellabeat’s products and analyze smart device data to gain insight into how consumers are using their smart devices.
+
+Collecting data on activity, sleep, stress, and reproductive health has allowed Bellabeat to empower women with knowledge about their own health and habits.
+
+Bellabeat products became available through a growing number of online retailers in addition to their own e-commerce channel on their website. The company has invested in traditional advertising media, such as radio, out-of-home billboards, print, and television, but focuses on digital marketing extensively. 
+
+Sršen asks you to analyze smart device usage data in order to gain insight into how consumers use non-Bellabeat smart devices.
+
+Sršen encourages you to use public data that explores smart device users’ daily habits. She points you to a specific data set: ● FitBit Fitness Tracker Data (CC0: Public Domain, dataset made available through Mobius): This Kaggle data set
+contains personal fitness tracker from thirty fitbit users. Thirty eligible Fitbit users consented to the submission of personal tracker data, including minute-level output for physical activity, heart rate, and sleep monitoring. It includes information about daily activity, steps, and heart rate that can be used to explore users’ habits. Sršen tells you that this data set might have some limitations.
+
+# Loading the necessary packages
+
+```{r}
+library('tidyverse')
+```
+
+```{r}
+library('here')
+```
+
+```{r}
+library('skimr')
+```
+
+```{r}
+library('janitor')
+```
+
+```{r}
+library('dplyr')
+```
+
+```{r}
+library('hms')
+```
+
+```{r}
+library(rmarkdown) 
+```
+
+# Upload the CSV files to R
+
+Uploading the CSV files in the R project folder from the below data source: <https://www.kaggle.com/arashnic/fitbit>
+
+
+# Loading the CSV files
+
+I will create dataframe for each CSV that I will upload by using the read.csv() function.
+
+```{r}
+daily_activity <- read.csv("dailyActivity_merged.csv")
+```
+
+```{r}
+sleep_day <- read.csv("sleepDay_merged.csv")
+```
+
+```{r}
+daily_intensities <- read.csv("dailyIntensities_merged.csv")
+```
+
+```{r}
+daily_steps <- read.csv("dailySteps_merged.csv")
+```
+
+```{r}
+weight_info <- read.csv("weightLogInfo_merged.csv")
+```
+
+# Exploring a few key tables
+
+
+```{r}
+head(daily_activity)
+```
+
+```{r}
+colnames(daily_activity)
+```
+
+```{r}
+skim_without_charts(daily_activity)
+```
+
+```{r}
+glimpse(daily_activity)
+```
+
+```{r}
+str(daily_activity)
+```
+
+```{r}
+head(daily_intensities)
+```
+
+```{r}
+colnames(daily_intensities)
+```
+
+```{r}
+skim_without_charts(daily_intensities)
+```
+
+```{r}
+glimpse(daily_intensities)
+```
+
+```{r}
+str(daily_intensities)
+```
+
+```{r}
+head(daily_steps)
+```
+
+```{r}
+colnames(daily_steps)
+```
+
+```{r}
+skim_without_charts(daily_steps)
+```
+
+```{r}
+glimpse(daily_steps)
+```
+
+```{r}
+str(daily_steps)
+```
+
+```{r}
+head(sleep_day)
+```
+
+```{r}
+colnames(sleep_day)
+```
+
+```{r}
+skim_without_charts(sleep_day)
+```
+
+```{r}
+glimpse(sleep_day)
+```
+
+```{r}
+str(sleep_day)
+```
+
+```{r}
+head(weight_info)
+```
+
+```{r}
+colnames(weight_info)
+```
+
+```{r}
+skim_without_charts(weight_info)
+```
+
+```{r}
+glimpse(weight_info)
+```
+
+```{r}
+str(weight_info)
+```
+Note that all the datasets have the 'Id' field - this can be used to merge the datasets.
+
+# Cleaning and formatting the data
+
+```{r}
+cleaned_activity <- daily_activity %>%                                # Creating a clean dataframe
+  na.omit() %>%                                                       # Remove rows with missing values
+  mutate(ActivityDate = as.Date(ActivityDate, format = "%m/%d/%Y"))   # Convert "Date" column to date format
+```
+
+```{r}
+cleaned_intensities <- daily_intensities %>%                             # Creating a clean dataframe
+  na.omit() %>%                                                          # Remove rows with missing values
+  mutate(ActivityDay = as.Date(ActivityDay, format = "%m/%d/%Y"))        # Convert "Date" column to date format
+```
+
+```{r}
+cleaned_steps <- daily_steps %>%                                      # Creating a clean dataframe
+  na.omit() %>%                                                       # Remove rows with missing values
+  mutate(ActivityDay = as.Date(ActivityDay, format = "%m/%d/%Y"))     # Convert "Date" column to date format
+```
+
+```{r}
+cleaned_sleep <- sleep_day %>%                                        # Creating a clean dataframe
+  na.omit() %>%                                                       # Remove rows with missing values
+  mutate(SleepDay = as.Date(SleepDay, format = "%m/%d/%Y"))           # Convert "Date" column to date format
+```
+
+```{r}
+separate_weight <- weight_info %>%                                    # Creating a clean dataframe
+  separate(Date, into = c("Date", "Time"), sep = " ")                 # Seperating the time and date, creating a new column
+```
+
+```{r}
+cleaned_weight <- separate_weight %>%                                 # Creating a clean dataframe
+  mutate(Date = as.Date(Date, format = "%m/%d/%Y"),                   # Convert "Date" column to date format
+         Time = as_hms(Time))                                         # Convert "Time" column to hms format
+```
+
+# Cleaning and standardize column names (Removing leading and trailing whitespace, converting to lowercase), but also creating the final version of my dataframe
+
+```{r}
+final_activity <- cleaned_activity %>%
+  clean_names()
+```
+
+```{r}
+final_intensities <- cleaned_intensities %>%
+  clean_names()
+```
+
+```{r}
+final_sleep <- cleaned_sleep %>%
+  clean_names()
+```
+
+```{r}
+final_steps <- cleaned_steps %>%
+  clean_names()
+```
+
+```{r}
+final_weight <- cleaned_weight %>%
+  clean_names()
+```
+
+# Review data to double check if it's cleaned
+
+```{r}
+head(final_activity)
+```
+
+```{r}
+colnames(final_activity)
+```
+
+```{r}
+str(final_activity)
+```
+
+```{r}
+head(final_intensities)
+```
+
+```{r}
+colnames(final_intensities)
+```
+
+```{r}
+str(final_intensities)
+```
+
+```{r}
+head(final_sleep)
+```
+
+```{r}
+colnames(final_sleep)
+```
+
+```{r}
+str(final_sleep)
+```
+
+```{r}
+head(final_steps)
+```
+
+```{r}
+colnames(final_steps)
+```
+
+```{r}
+str(final_steps)
+```
+
+```{r}
+head(final_weight)
+```
+
+```{r}
+colnames(final_weight)
+```
+
+```{r}
+str(final_weight)
+```
+
+# Analyzing the data
+
+# How many unique participants are there in each dataframe? 
+It looks like there may be more participants in the daily activity, and intensities dataset than the sleep dataset. The lowest participants are in weight dataset. 
+
+```{r distinct users}
+n_distinct(final_activity$id)
+n_distinct(final_intensities$id)
+n_distinct(final_sleep$id)
+n_distinct(final_steps$id)
+n_distinct(final_weight$id)
+```
+# How many observations are there in each dataframe?
+
+```{r observations}
+nrow(final_activity)
+nrow(final_intensities)
+nrow(final_sleep)
+nrow(final_steps)
+nrow(final_weight)
+```
+# Quick summary statistics we'd want to know about each data frame?
+
+For the activity dataframe:
+```{r}
+final_activity %>%  
+  select(total_steps,
+         total_distance,
+         sedentary_minutes) %>%
+  summary()
+```
+For the sleep dataframe:
+```{r}
+final_sleep %>%  
+  select(total_sleep_records,
+  total_minutes_asleep,
+  total_time_in_bed) %>%
+  summary()
+```
+
+# Checking the correlations between datasets
+
+Positive correlation/Weak positive correlation:
+
+```{r}
+ggplot(data=final_sleep, aes(x=total_minutes_asleep, y=total_time_in_bed)) + geom_point()
+```
+
+```{r}
+cor(final_sleep$total_minutes_asleep, final_sleep$total_time_in_bed)
+```
+
+# Checking the correlation between different level of activity and calories burned
+```{r}
+activity_correlations <- final_activity %>%
+  select(calories, very_active_minutes, fairly_active_minutes, lightly_active_minutes, sedentary_minutes) %>%
+  cor()
+```
+
+# Print the correlation matrix
+```{r}
+print(activity_correlations)
+```
+
+Negative correlation/No correlation:
+
+# Checking to see if we have a correlation between total steps and sendatary_minutes.
+```{r}
+ggplot(data=final_activity, aes(x=total_steps, y=sedentary_minutes)) + geom_point()
+```
+
+# Calculcate the correlation coefficient for above ggplot
+```{r}
+cor(final_activity$total_steps, final_activity$sedentary_minutes)
+```
+
+
+# Merging final_sleep and final_activity. 
+```{r}
+combined_data <- merge(final_sleep, final_activity, by="id")
+```
+
+# How many participants are in this data set?
+```{r}
+n_distinct(combined_data$id)
+```
+# Checking the correlation between total steps and total minutes asleep:
+```{r}
+ggplot(combined_data, aes(x = total_steps, y = total_minutes_asleep)) +
+  geom_point() +
+  labs(x = "Total Steps", y = "Total Minutes Asleep")
+```
+# Calculate the correlation coefficient for above ggplot. 
+```{r}
+cor(combined_data$total_steps, combined_data$total_minutes_asleep)
+```
+
+
+# Checking the correlation between calories and total minutes asleep:
+```{r}
+ggplot(combined_data, aes(x = total_minutes_asleep, y = calories)) +
+  geom_point() +
+  labs(x = "Total Minutes Asleep", y = "Calories")
+```
+# Calculate the correlation coefficient for above ggplot. 
+```{r}
+cor(combined_data$total_minutes_asleep, combined_data$calories)
+```
+
+# Calculate sleep efficiency
+```{r}
+sleep_efficiency_data <- combined_data %>%
+  mutate(sleep_efficiency = total_minutes_asleep / total_time_in_bed)
+```
+
+# Calculate correlations
+```{r}
+correlations <- sleep_efficiency_data %>%
+  select(sleep_efficiency, very_active_minutes, fairly_active_minutes, lightly_active_minutes, sedentary_minutes) %>%
+  cor()
+```
+
+# Print the correlation matrix
+```{r}
+print(correlations)
+```
+
+# Merging final_sleep and final_weight. 
+```{r}
+weight_management <- merge(final_sleep, final_weight, by="id")
+```
+
+# Checking the number of unique participants
+```{r}
+n_distinct(weight_management$id)
+```
+
+# Checking the correlation between total_minutes_asleep and weight_kg:
+```{r}
+ggplot(weight_management, aes(x = total_minutes_asleep, y = weight_kg)) +
+  geom_point() +
+  labs(x = "Total Minutes Asleep", y = "Weight KG")
+```
+
+# Calculate the correlation coefficient for above ggplot. 
+```{r}
+cor(weight_management$total_minutes_asleep, weight_management$weight_kg)
+```
+
+# Merging final_activity and final_weight. 
+```{r}
+weight_management2 <- merge(final_activity, final_weight, by="id")
+```
+
+# Checking the number of unique participants
+```{r}
+n_distinct(weight_management2$id)
+```
+# Checking the correlation between different level of activity and calories burned
+```{r}
+weight_correlations <- weight_management2 %>%
+  select(weight_kg, very_active_minutes, fairly_active_minutes, lightly_active_minutes, sedentary_minutes) %>%
+  cor()
+```
+
+# Print the correlation matrix
+```{r}
+print(weight_correlations)
+```
+
