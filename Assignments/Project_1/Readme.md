@@ -33,7 +33,7 @@ I applied matching functions (MATCH, SEARCH) in Excel to compare regions and cit
 
 4. Handling Missing Data
    
-Website: I gave priority to Source 1 for the website field. If it was missing in Source 1, I checked Source 2, then Source 3, and if all were missing, I marked the website as "N/A".
+Website: I gave priority to Source 1 for the website field. If it was missing in Source 1, I checked Source 2, and if all were missing, I marked the website as "N/A".
 Activity: Since different sources might describe the same business in slightly different ways, I opted to keep the description that seemed the most complete. For instance, "Electrical & Wiring Contractors" was kept over "Electricians."
 
 5. Final Adjustments and Considerations
