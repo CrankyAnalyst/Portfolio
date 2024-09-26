@@ -19,34 +19,7 @@ I initially used Power Query to handle basic formatting issues, as it allows for
 Trim & Clean: Removed unnecessary spaces, special characters, and extra line breaks.
 Uppercase First Letters: Applied proper casing (first letter capitalized) to company names, regions, and cities to maintain consistency.
 Uniform Phone Format: Used formulas in Excel to ensure all phone numbers were in the "+1 (XXX) XXX-XXXX" format, specifically for Canadian numbers.
-I used the CONCATENATE function in Excel to format the phone numbers. If a number was present in Source 1, it was formatted first. If there were discrepancies between sources, I took numbers from Source 2 and Source 3, concatenating them in the format "+1 (XXX) XXX-XXXX":
-excel
-
-=CONCATENATE(
-    IF(AND([@[Source 1 - phone number]]<>"",[@[Source 1 - phone number]]<>"0"),
-        CONCATENATE("+1 (", MID([@[Source 1 - phone number]], 1, 3), ") ", MID([@[Source 1 - phone number]], 4, 3), "-", MID([@[Source 1 - phone number]], 7, 4)),
-        ""),
-    IF(AND([@[Source 2 - Phone]]<>"", [@[Source 2 - Phone]]<>"0",
-        NOT(CONCATENATE("+1 (", MID([@[Source 2 - Phone]], 1, 3), ") ", MID([@[Source 2 - Phone]], 4, 3), "-", MID([@[Source 2 - Phone]], 7, 4)) =
-        CONCATENATE("+1 (", MID([@[Source 1 - phone number]], 1, 3), ") ", MID([@[Source 1 - phone number]], 4, 3), "-", MID([@[Source 1 - phone number]], 7, 4)))),
-        CONCATENATE(
-            IF(AND([@[Source 1 - phone number]]<>"", [@[Source 1 - phone number]]<>"0"), ", ", ""),
-            IF(LEFT([@[Source 2 - Phone]], 1)="+",
-                CONCATENATE(LEFT([@[Source 2 - Phone]], 2), " (", MID([@[Source 2 - Phone]], 3, 3), ") ", MID([@[Source 2 - Phone]], 6, 3), "-", MID([@[Source 2 - Phone]], 9, 4)),
-                IF(LEN([@[Source 2 - Phone]])=12,
-                    CONCATENATE("+", LEFT([@[Source 2 - Phone]], 3), " (", MID([@[Source 2 - Phone]], 4, 3), ") ", MID([@[Source 2 - Phone]], 7, 3), "-", MID([@[Source 2 - Phone]], 10, 4)),
-                    CONCATENATE("+1 (", MID([@[Source 2 - Phone]], 1, 3), ") ", MID([@[Source 2 - Phone]], 4, 3), "-", MID([@[Source 2 - Phone]], 7, 4))
-                )
-            )
-        ),
-        ""
-    ),
-    IF(AND([@[Source 3 - Phone]]<>"", [@[Source 3 - Phone]]<>"0",
-        NOT(CONCATENATE("+1 (", MID([@[Source 3 - Phone]], 1, 3), ") ", MID([@[Source 3 - Phone]], 4, 3), "-", MID([@[Source 3 - Phone]], 7, 4)) =
-        CONCATENATE("+1 (", MID([@[Source 1 - phone number]], 1, 3), ") ", MID([@[Source 1 - phone number]], 4, 3), "-", MID([@[Source 1 - phone number]], 7, 4)))),
-        CONCATENATE("+1 (", MID([@[Source 3 - Phone]], 1, 3), ") ", MID([@[Source 3 - Phone]], 4, 3), "-", MID([@[Source 3 - Phone]], 7, 4)),
-        "")
-)
+I used the CONCATENATE function in Excel to format the phone numbers. If a number was present in Source 1, it was formatted first. If there were discrepancies between sources, I took numbers from Source 2 and Source 3, concatenating them in the format "+1 (XXX) XXX-XXXX"
 
 2. Address Cleaning and Formatting
    
