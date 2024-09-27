@@ -1,10 +1,10 @@
 Overview - Exploring Taxonomies and Data Matching Techniques
 
-When I got this assignment about taxonomies, I wasn’t too familiar with the concept at first. It wasn’t mandatory to complete, but I wanted to explore it to better understand why it’s important and what I could learn from it. The idea of mapping different taxonomies seemed challenging, but it also felt like a great opportunity to dive deeper into data analysis tools like SQL and Excel, which I’ve been learning recently.
+When I got this assignment about taxonomies, I wasn’t too familiar with the concept at first. It wasn’t mandatory to complete, but I wanted to explore it to better understand why it’s important and what I could learn from it. The idea of mapping different taxonomies seemed challenging, but it also felt like a great opportunity to dive deeper into data analysis tools like SQL and Excel.
 
 What are taxonomies?
 
-I had to start by learning what taxonomies really mean in this context. Basically, they’re a way to organize data into categories and subcategories, kind of like how a library organizes books into sections. In this case, there were two different taxonomies: one belonging to my company, and the other from a client. The task was to find a way to map these two sets of categories together, even though they used slightly different names and structures.
+I had to start by learning what taxonomies really mean in this context. Basically, they’re a way to organize data into categories and subcategories, kind of like how a library organizes books into sections. In this case, there were two different taxonomies: one belonging to the company, and the other from a client. The task was to find a way to map these two sets of categories together, even though they used slightly different names and structures.
 
 For example:
 
