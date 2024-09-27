@@ -31,6 +31,7 @@ What I Learned
 
 Why mapping is needed: Different systems organize their data in different ways, so mapping them together is necessary to make them useful across systems.
 Similarity scores need interpretation: A score of 1 is easy to understand—categories are the same. But lower scores, like 0.8, might still represent a good match, even if the names aren’t identical.
+
 Choosing the right tool: SQL is great for handling large datasets quickly, while Excel is good for more visual, smaller tasks. Both have their uses depending on what you're doing.
 
 Next Steps
