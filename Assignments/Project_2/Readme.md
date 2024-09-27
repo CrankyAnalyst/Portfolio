@@ -34,6 +34,7 @@ Challenges and Solutions:
 Repeated Categories: In some cases, Web Scraper repeated the same category multiple times (e.g., "Company Type" appeared with slightly different values). This meant I had to spend extra time cleaning up the data after it was collected.
 
 Structured Data Alignment: Sometimes, Web Scraper didn’t handle tables with complex layouts as neatly as Python, so I needed to review and adjust the data afterward.
+
 Issues and Fixes:
 
 Misaligned Data in CSV: When exporting the data to CSV format, some columns didn’t line up correctly. This happened because Wikipedia pages have slightly different table formats. While I didn’t fix this for the current version, I’ve noted that future versions will need better handling of missing or extra rows to improve data accuracy.
