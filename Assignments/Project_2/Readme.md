@@ -7,10 +7,12 @@ Method 1: Python Web Scraping
 Python was my first approach because it allows for full control over how to extract and clean the data.
 
 Steps I Followed:
-
 Requests and BeautifulSoup Libraries: I started by sending a request to the company's Wikipedia page and then used a library called BeautifulSoup to look through the page's HTML code and find the table containing company details.
+
 Identifying the Table: I used the browser's "Inspect Element" tool to find the correct table class on the page ('infobox ib-company vcard'), and then I told the code to search for this table and extract its data.
+
 Extracting Labels and Information: I pulled each company detail like "Founded" or "Industry" and their related information (e.g., "1945" or "Private Equity"). These were stored in lists.
+
 Cleaning the Data: Wikipedia adds references (e.g., [1], [2]) that needed to be removed. I also cleaned up any extra line breaks so all the data was neatly in one line.
 
 Challenges and Solutions:
@@ -28,6 +30,7 @@ The tool worked well for bulk scraping but had some limitations in handling more
 
 Challenges and Solutions:
 Repeated Categories: In some cases, Web Scraper repeated the same category multiple times (e.g., "Company Type" appeared with slightly different values). This meant I had to spend extra time cleaning up the data after it was collected.
+
 Structured Data Alignment: Sometimes, Web Scraper didn’t handle tables with complex layouts as neatly as Python, so I needed to review and adjust the data afterward.
 Issues and Fixes:
 
