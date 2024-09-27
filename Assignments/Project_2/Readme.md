@@ -5,7 +5,7 @@ The goal of this project was to extract structured information about companies l
 
 Methodologies:
 
-Python for Web Scraping:
+1. Python for Web Scraping:
 Python is highly versatile and gives a lot of control over the scraping and data processing. I wanted to experiment with this flexibility by manually building a scraper using the requests library for fetching the page and BeautifulSoup for parsing HTML content.
 
 Steps Taken:
@@ -22,7 +22,7 @@ What I Learned:
 Python offers extensive control over how data is extracted, cleaned, and processed. However, scraping manually for each company can be time-consuming. For a smaller dataset, this method works well, but scaling this process would require additional automation, such as looping through URLs for all companies.
 Error Handling: When pages did not contain the expected structure, the script could break. Therefore, implementing error handling using try-except blocks would be necessary for future improvements.
 
-Web Scraper Tool:
+2. Web Scraper Tool:
 I wanted to try a tool that could quickly scrape data from multiple pages with less manual coding. Web Scraper is a browser extension that allows visual navigation of web pages to collect data.
 
 Steps Taken:
