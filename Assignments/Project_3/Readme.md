@@ -11,6 +11,7 @@ Category A in Taxonomy1 might match Category B in Taxonomy2.
 But sometimes, one category from Taxonomy1 might match several categories in Taxonomy2, or only part of it.
 
 Exploring Similarity Matching
+
 This task wasn’t about cleaning or merging the data, but more about checking how similar the two taxonomies were. One main thing I used was similarity matching, which helps measure how close two pieces of text are (in this case, the category names).
 
 I used two methods for this:
