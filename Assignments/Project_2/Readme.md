@@ -39,7 +39,7 @@ Error Handling: Unlike Python, where errors can be caught and handled, Web Scrap
 
 Issues and Fixes:
 When exporting the data to a CSV file, I encountered issues with characters like "Â" appearing incorrectly. This was resolved by ensuring the correct encoding (utf-8) was applied when saving the file
-During the scraping, I noticed that some columns were misaligned in the output CSV. This occurred because of inconsistent data structures across different Wikipedia pages. By manually reviewing the data and ensuring uniformity in how the data was extracted (e.g., handling missing values or extra rows in the table), I improved the data integrity.
+During the scraping, I noticed that some columns were misaligned in the output CSV. It might be because of inconsistent data structures across different Wikipedia pages. While this was noted during the extraction process, I left it as is for this version. Moving forward, further steps should be taken to review and ensure uniformity in how data is extracted. For future improvements, handling these inconsistencies (e.g., missing values or extra rows) will be essential to improve the data integrity and avoid misalignment issues.
 
 Conclusion:
 Both Python and Web Scraper have their advantages depending on the scope and needs of the project. Python offers unparalleled flexibility and control for a custom scraping solution, making it ideal for projects requiring precise data manipulation or handling inconsistencies across pages. However, it requires more time and effort to set up and run for multiple pages. On the other hand, Web Scraper is a powerful tool for quickly gathering data across many pages without much coding effort, though it may require additional processing to clean and organize the data.
