@@ -1,46 +1,35 @@
 Overview - Data Cleaning and Merging Process
 
 Objective:
-The goal of this project was to merge multiple data sources into a single clean and accurate record for each company. Each record should contain one correct location, phone number, website, and business activity for each company. The challenge lies in the fact that the data provided by the various sources had varying levels of accuracy (around 80%), and required careful cleaning and validation.
+The goal was to combine data from several sources into a single, clean record for each company. Each record needed one correct address, phone number, website, and business activity. The challenge was that the data had different levels of accuracy (around 80%), so it needed careful cleaning.
 
-Initial Challenges:
-Full Address (Source 1): Many entries had incomplete or inconsistent addresses, sometimes containing odd characters, like the "#" sign, which I decided to remove for better uniformity and clarity. Uniform formatting of addresses can be crucial for data consistency, especially when the data is used for searching or location-based analysis.
-Phone Numbers (Source 1, 2, 3): There were different formats, some numbers missing the international code "+1" for Canada, and sometimes multiple phone numbers for the same entry across sources.
-Regions (Source 1, 2, 3): Regions were often abbreviated (ON, AB, etc.), and we needed to map these abbreviations to their full names for clarity, particularly for users outside of Canada.
-Cities (Source 1, 2, 3): Some city names were missing or written in lowercase or with inconsistent spelling.
-Countries (Source 1, 2, 3): While most entries were for Canada, I noticed some entries for the United States and other countries, which required some extra care in matching the data correctly.
-Website and Activity (Source 2, 3): Many entries had missing websites or incomplete business activity descriptions. Sometimes Source 2 and Source 3 offered slightly different business activities for the same company.
+Challenges:
+Address (Source 1): Many addresses were incomplete or inconsistent, some with strange characters like "#", which I removed to keep things uniform.
+Phone Numbers (Source 1, 2, 3): Different formats, some missing the "+1" for Canada. Some entries had multiple phone numbers across sources.
+Regions (Source 1, 2, 3): Regions were often abbreviated (like ON for Ontario). These needed to be converted to full names for better clarity.
+Cities (Source 1, 2, 3): Some city names were incomplete, lowercase, or spelled incorrectly.
+Website (Source 2, 3) and Activity (Source 2, 3, 4, 5, 6): Some entries had missing websites or business descriptions. Different sources sometimes gave slightly different activities.
 
 Steps Taken:
+Initial Cleaning with Power Query
+I first used Power Query to reorganize columns for easier review and bulk formatting:
 
-1. Power Query for Initial Cleaning
-I initially used Power Query to handle basic formatting issues, as it allows for faster bulk operations:
+Trim & Clean: Removed extra spaces and special characters.
+Uppercase Letters: Formatted names, regions, and cities to use proper case.
+Rearranged Columns: Made sure all data from the same sources were grouped together to improve clarity and processing.
 
-Trim & Clean: Removed unnecessary spaces, special characters, and extra line breaks.
-Uppercase First Letters: Applied proper casing (first letter capitalized) to company names, regions, and cities to maintain consistency.
-Uniform Phone Format: Used formulas in Excel to ensure all phone numbers were in the "+1 (XXX) XXX-XXXX" format, specifically for Canadian numbers.
-I used the CONCATENATE function in Excel to format the phone numbers. If a number was present in Source 1, it was formatted first. If there were discrepancies between sources, I took numbers from Source 2 and Source 3, concatenating them in the format "+1 (XXX) XXX-XXXX"
+Phone Numbers
+After Power Query, I used Excel’s CONCATENATE function to ensure all phone numbers followed the format "+1 (XXX) XXX-XXXX." I prioritized Source 3, but if it was missing, I added numbers from Source 1 and 2. I also combined multiple phone numbers into a single field where necessary.
 
-2. Address Cleaning and Formatting
-   
-I removed the "#" symbol in front of addresses (e.g., #120-3605) to maintain a uniform format across all addresses. This was done to avoid confusion, especially since some addresses also contained numbers in the street name (e.g., 1234 Main St #5), which could create ambiguity.
-I filtered out duplicates based on full addresses, while ensuring that if a duplicate address had multiple phone numbers, they were all included in the final record.
+Address Formatting
+I removed "#" from addresses for uniformity and to avoid confusion. If an address had duplicates but different phone numbers, I kept all numbers.
 
-3. Region and City Matching
-   
-For regions, I mapped abbreviations (e.g., AB, ON) to their full names (e.g., Alberta, Ontario) to ensure clarity. This is particularly important since the data could be accessed by people from different countries who may not be familiar with Canadian abbreviations.
-I applied matching functions (MATCH, SEARCH) in Excel to compare regions and cities across the sources. If the regions or cities matched, I kept that value. If they differed or were missing, I marked them as "N/A" for further review.
+Region and City Matching
+I converted region abbreviations (like ON, AB) into full names for clarity. For cities and regions, I compared data across sources and kept the most consistent values. If no match existed, I marked them as "N/A."
 
-4. Handling Missing Data
-   
-Website: I gave priority to Source 1 for the website field. If it was missing in Source 1, I checked Source 2, and if all were missing, I marked the website as "N/A".
-Activity: Since different sources might describe the same business in slightly different ways, I opted to keep the description that seemed the most complete. For instance, "Electrical & Wiring Contractors" was kept over "Electricians."
-
-5. Final Adjustments and Considerations
-   
-Phone Numbers: In cases where duplicate records existed, I ensured that if multiple unique phone numbers were found for the same company, they were all included in a single combined field.
-Uniformity: Although I didn’t perform full uniformity adjustments on all columns (like region and city), this is an important step to consider for a future stage of the project, especially if the database will be queried internationally.
+Handling Missing Data
+Website: I prioritized websites from Source 1, checking Source 2 if missing, and marking as "N/A" when necessary.
+Activity: I kept the most complete description of business activity when sources differed.
 
 Conclusion:
-The goal was to create a clean and reliable dataset by combining the best information from multiple sources. The process involved extensive cleaning, standardizing, and merging of data to ensure accuracy and consistency. Although I worked within a limited timeframe, further steps could involve a deeper dive into verifying the correctness of phone numbers and regions, perhaps through external validation or web scraping tools.
-
+The goal was to produce a clean, reliable dataset by combining the best data from multiple sources. Further steps, such as verifying phone numbers and regions using external tools, could improve accuracy even further in future stages.
