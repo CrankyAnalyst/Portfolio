@@ -40,7 +40,6 @@ Since this was just an exploration, I didn’t clean or merge the taxonomies yet
 
 Refining matching rules: For pairs that don’t have high similarity scores, I’d manually check if they should still be matched.
 Handling tricky cases: Sometimes, one category in Taxonomy1 maps to several categories in Taxonomy2. I’d look more into these.
-Trying out Python: I didn’t use Python for this task, but I know it’s another powerful tool for working with large datasets and might be something I’ll explore in the future.
 
 Conclusion
 
