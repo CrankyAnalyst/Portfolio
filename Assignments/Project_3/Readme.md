@@ -21,7 +21,7 @@ SQL has a function called similarity(), which gives you a score based on how sim
 I learned that a score of 1 means a perfect match (the categories are identical), while a score closer to 0 means the categories are very different.
 
 Results:
-After running the query, I found out that most categories had a score below 0.7, meaning they were not very similar. Only about 670 out of 30,000 pairs had scores over 0.7, which suggested those were pretty good matches.
+After running the query, I found out that most categories had a score below 0.7, meaning they were not very similar. Only about 670 out of 34,264 pairs had scores over 0.7, which suggested those were pretty good matches.
 
 Excel and the Fuzzy Lookup Add-On:
 
