@@ -16,7 +16,7 @@ Once extracted, I cleaned the data to remove unwanted references and line breaks
 Challenges and How I Overcame Them:
 Wikipedia often includes references in the form of [1], [2], etc., in the text. To clean the data, I used regular expressions to remove these reference numbers, improving data readability.
 Newline Characters: Some information in the table spanned multiple lines. I used Python's replace() function to clean these up by removing newline characters and combining everything into a single line for consistency.
-Table Selection: The first step was identifying the correct HTML element  (<table>) that contained the required data. Using browser tools like "Inspect Element" helped to narrow down the specific table class ('infobox ib-company vcard'), which was then extracted using BeautifulSoup.
+Table Selection: The first step was identifying the correct HTML element (table) that contained the required data. Using browser tools like "Inspect Element" helped to narrow down the specific table class ('infobox ib-company vcard'), which was then extracted using BeautifulSoup.
 
 What I Learned:
 Python offers extensive control over how data is extracted, cleaned, and processed. However, scraping manually for each company can be time-consuming. For a smaller dataset, this method works well, but scaling this process would require additional automation, such as looping through URLs for all companies.
