@@ -16,7 +16,9 @@ Extracting Labels and Information: I pulled each company detail like "Founded" o
 Cleaning the Data: Wikipedia adds references (e.g., [1], [2]) that needed to be removed. I also cleaned up any extra line breaks so all the data was neatly in one line.
 
 Challenges and Solutions:
+
 References: Wikipedia adds references (e.g., [1], [2]) within the text. To remove them, I used a tool called "regular expressions" that finds and deletes these references automatically.
+
 Line Breaks: Some data had extra line breaks, so I wrote a function to replace them with spaces, making the data look cleaner.
 Table Selection: Finding the right table on the page was tricky, but using the browser's "Inspect Element" helped identify the correct class name of the table.
 
